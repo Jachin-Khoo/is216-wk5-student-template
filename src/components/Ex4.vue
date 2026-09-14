@@ -9,8 +9,9 @@ function del(index) {
 }
 
 function addItem() {
-  if (newItem.value.trim() !== '') {
-    items.value.push(newItem.value.trim())
+  const val = (newItem.value || '').trim()
+  if (val.length > 0) {
+    items.value.push(val)
     newItem.value = ''
   }
 }
@@ -25,9 +26,10 @@ function addItem() {
     </li>
   </ul>
 
-  <!-- Form handles Enter key and prevents page refresh -->
-  <form @submit.prevent="addItem">
-    <input v-model="newItem" />
-    <button type="submit">Add!</button>
-  </form>
+  <input 
+    type="text" 
+    v-model="newItem" 
+    @keydown.enter.prevent="addItem" 
+  />
+  <button type="button" @click="addItem">Add!</button>
 </template>
