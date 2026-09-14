@@ -11,13 +11,11 @@ const maxScore = ref(10)
 const gameOver = computed(() => scoreA.value >= maxScore.value || scoreB.value >= maxScore.value)
 
 function addA() {
-  if (gameOver.value) return
-  scoreA.value += step.value
+  scoreA.value = Math.min(maxScore.value, scoreA.value + step.value)
 }
 
 function addB() {
-  if (gameOver.value) return
-  scoreB.value += step.value
+  scoreB.value = Math.min(maxScore.value, scoreB.value + step.value)
 }
 
 function reset() {
