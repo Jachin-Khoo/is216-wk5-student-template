@@ -7,7 +7,7 @@ const operators = ref(["+", "-", "*", "/", "%"])
 const selectedOp = ref("+")
 
 // TODO: Add Code Here
-// Note: DO NOT USE "eval()". In security, "eval" is considered "evil"!!!
+// Note: DO NOT USE "eval()". In security, "eval" ids considered "evil"!!!
 const result = computed(() => {
     switch (selectedOp.value) {
         case '+':
