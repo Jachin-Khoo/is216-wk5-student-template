@@ -3,7 +3,7 @@ import { ref } from 'vue'
 
 const teamA = ref("Falcons")
 const teamB = ref("Tigers")
-const scoreA = ref(0)
+const scoreA = ref(0)   
 const scoreB = ref(0)
 const step = ref(1) // points added per click
 const maxScore = ref(10)
@@ -33,17 +33,19 @@ function reset() {
         <p>Current: {{ scoreA }} - {{ scoreB }}</p>
 
         <!-- B. In-template expressions go here -->
-
+        <p>Total points: {{ scoreA + scoreB }}</p>
+        <p>Points left to win: {{ 10 - Math.max(scoreA, scoreB) }}</p>
         <!-- A. Event handlers go here -->
         <div style="display: flex; gap: 12px; margin: 12px 0;">
-            <button>+ Team A</button>
-            <button>+ Team B</button>
-            <button>Reset</button>
+            <button @click="addA">+ Team A</button>
+            <button @click="addB">+ Team B</button>
+            <button @click="reset">Reset</button>
         </div>
 
 
         <div style="margin-top: 14px;">
             <!-- C. Display winner / status here -->
+            <p v-if="scoreA >= maxScore || scoreB >= maxScore">Winner: {{ scoreA > scoreB ? teamA : teamB }}</p>
         </div>
 
 
