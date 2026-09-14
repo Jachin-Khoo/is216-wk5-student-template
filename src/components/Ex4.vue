@@ -18,16 +18,16 @@ function addItem() {
 
 <template>
   <h2>Shopping Cart</h2>
-  
+
   <ul>
     <li v-for="(item, index) in items" :key="index">
-      {{ item }} <button @click="del(index)">Delete!</button>
+      {{ item }} <button type="button" @click="del(index)">Delete!</button>
     </li>
   </ul>
 
-  <!-- Input and Add button placed below the list -->
-  <input v-model="newItem" placeholder="" />
-  <button @click="addItem">Add!</button>
-  <input v-model="newItem" @keyup.enter="addItem" />
-  <button @click="addItem">Add!</button>
+  <!-- Form handles Enter key and prevents page refresh -->
+  <form @submit.prevent="addItem">
+    <input v-model="newItem" />
+    <button type="submit">Add!</button>
+  </form>
 </template>
