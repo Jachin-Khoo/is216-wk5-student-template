@@ -15,14 +15,6 @@ function addItem() {
     newItem.value = ''
   }
 }
-
-function handleKeyDown(event) {
-  // Checks both keyCode and key name, and prevents triggering during IME input
-  if ((event.key === 'Enter' || event.keyCode === 13) && !event.isComposing) {
-    event.preventDefault()
-    addItem()
-  }
-}
 </script>
 
 <template>
@@ -34,10 +26,11 @@ function handleKeyDown(event) {
     </li>
   </ul>
 
-  <input 
-    type="text" 
-    v-model="newItem" 
-    @keydown="handleKeyDown" 
+  <input
+    type="text"
+    v-model="newItem"
+    placeholder="Add an item"
+    @keyup.enter="addItem"
   />
   <button type="button" @click="addItem">Add!</button>
 </template>
