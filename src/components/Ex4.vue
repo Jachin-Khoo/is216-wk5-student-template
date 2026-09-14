@@ -9,10 +9,18 @@ function del(index) {
 }
 
 function addItem() {
-  const val = (newItem.value || '').trim()
-  if (val.length > 0) {
-    items.value.push(val)
+  const text = newItem.value.trim()
+  if (text !== '') {
+    items.value.push(text)
     newItem.value = ''
+  }
+}
+
+function handleKeyDown(event) {
+  // Checks both keyCode and key name, and prevents triggering during IME input
+  if ((event.key === 'Enter' || event.keyCode === 13) && !event.isComposing) {
+    event.preventDefault()
+    addItem()
   }
 }
 </script>
@@ -29,7 +37,7 @@ function addItem() {
   <input 
     type="text" 
     v-model="newItem" 
-    @keydown.enter.prevent="addItem" 
+    @keydown="handleKeyDown" 
   />
   <button type="button" @click="addItem">Add!</button>
 </template>
