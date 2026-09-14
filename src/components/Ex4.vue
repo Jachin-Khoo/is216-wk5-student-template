@@ -28,4 +28,6 @@ function addItem() {
   <!-- Input and Add button placed below the list -->
   <input v-model="newItem" placeholder="" />
   <button @click="addItem">Add!</button>
+  <input v-model="newItem" @keyup.enter="addItem" />
+  <button @click="addItem">Add!</button>
 </template>
