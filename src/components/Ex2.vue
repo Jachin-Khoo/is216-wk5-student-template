@@ -8,21 +8,16 @@ const scoreB = ref(0)
 const step = ref(1) // points added per click
 const maxScore = ref(10)
 
-// null while the game is ongoing, otherwise 'A', 'B', or 'tie'
-const winner = computed(() => {
-  if (scoreA.value >= maxScore.value && scoreB.value >= maxScore.value) return 'tie'
-  if (scoreA.value >= maxScore.value) return 'A'
-  if (scoreB.value >= maxScore.value) return 'B'
-  return null
-})
+// true once either team has reached the winning score
+const gameOver = computed(() => scoreA.value >= maxScore.value || scoreB.value >= maxScore.value)
 
 function addA() {
-  if (winner.value) return // lock scoring once the game is decided
+  if (gameOver.value) return // stop scoring once someone has already won
   scoreA.value = Math.min(maxScore.value, scoreA.value + step.value)
 }
 
 function addB() {
-  if (winner.value) return
+  if (gameOver.value) return
   scoreB.value = Math.min(maxScore.value, scoreB.value + step.value)
 }
 
@@ -44,15 +39,13 @@ function reset() {
     <p>Points left to win: {{ maxScore - Math.max(scoreA, scoreB) }}</p>
 
     <div style="display: flex; gap: 12px; margin: 12px 0;">
-      <button @click="addA" :disabled="!!winner">+ Team A</button>
-      <button @click="addB" :disabled="!!winner">+ Team B</button>
+      <button @click="addA">+ Team A</button>
+      <button @click="addB">+ Team B</button>
       <button @click="reset">Reset</button>
     </div>
 
     <div style="margin-top: 14px;">
-      <p v-if="winner === 'tie'">It's a tie!</p>
-      <p v-else-if="winner === 'A'">Winner: {{ teamA }}</p>
-      <p v-else-if="winner === 'B'">Winner: {{ teamB }}</p>
+      <p v-if="gameOver">Winner: {{ scoreA > scoreB ? teamA : teamB }}</p>
     </div>
   </div>
 </template>
