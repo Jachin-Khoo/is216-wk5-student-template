@@ -8,17 +8,16 @@ const scoreB = ref(0)
 const step = ref(1) // points added per click
 const maxScore = ref(10)
 
-// true once either team has reached the winning score
 const gameOver = computed(() => scoreA.value >= maxScore.value || scoreB.value >= maxScore.value)
 
 function addA() {
-  if (gameOver.value) return // stop scoring once someone has already won
-  scoreA.value = Math.min(maxScore.value, scoreA.value + step.value)
+  if (gameOver.value) return
+  scoreA.value += step.value
 }
 
 function addB() {
   if (gameOver.value) return
-  scoreB.value = Math.min(maxScore.value, scoreB.value + step.value)
+  scoreB.value += step.value
 }
 
 function reset() {
@@ -39,9 +38,9 @@ function reset() {
     <p>Points left to win: {{ maxScore - Math.max(scoreA, scoreB) }}</p>
 
     <div style="display: flex; gap: 12px; margin: 12px 0;">
-      <button @click="addA">+ Team A</button>
-      <button @click="addB">+ Team B</button>
-      <button @click="reset">Reset</button>
+      <button type="button" @click="addA">+ Team A</button>
+      <button type="button" @click="addB">+ Team B</button>
+      <button type="button" @click="reset">Reset</button>
     </div>
 
     <div style="margin-top: 14px;">
